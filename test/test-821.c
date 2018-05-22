@@ -1,7 +1,7 @@
-/**
- * Return an array of size *returnSize.
- * Note: The returned array must be malloced, assume caller calls free().
- */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 int* shortestToChar(char* S, char C, int* returnSize) {
     *returnSize = strlen(S);
     int *result = (int *)malloc(*returnSize * sizeof(int));
@@ -35,4 +35,16 @@ int* shortestToChar(char* S, char C, int* returnSize) {
     }
 
     return result;
+}
+
+int main() {
+    char *S = "loveleetcode";
+    char C = 'e';
+    int returnSize = 12;
+    int *result = shortestToChar(S, C, &returnSize);
+    for(int i = 0; i < returnSize; i++) {
+        printf("%d\t", result[i]);
+    }
+    printf("\n");
+    return 0;
 }

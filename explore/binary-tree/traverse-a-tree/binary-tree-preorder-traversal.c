@@ -28,7 +28,7 @@ int* preorderTraversal(struct TreeNode* root, int* returnSize) {
     struct TreeNode *cursorNode;
 
     while (stack_top > 0) {
-        cursorNode = stack[stack_top--];
+        cursorNode = stack[--stack_top];
         result[(*returnSize)++] = cursorNode->val;
         if (cursorNode->right != NULL) {
             stack[stack_top++] = cursorNode->right;

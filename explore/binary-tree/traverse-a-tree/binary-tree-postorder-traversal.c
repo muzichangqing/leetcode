@@ -10,7 +10,7 @@
  * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int* inorderTraversal(struct TreeNode* root, int* returnSize) {
+int* postorderTraversal(struct TreeNode* root, int* returnSize) {
     if (root == NULL) {
         returnSize = 0;
         return NULL;
@@ -27,16 +27,9 @@ int* inorderTraversal(struct TreeNode* root, int* returnSize) {
     struct TreeNode *cursorNode = root;
     
     while (stack_top > 0 || cursorNode != NULL) {
-        if (cursorNode != NULL) {
-            stack[stack_top++] = cursorNode;
-            cursorNode = cursorNode->left;
-        } else {
-            cursorNode = stack[--stack_top];
-            result[(*returnSize)++] = cursorNode->val;
-            cursorNode = cursorNode->right;
-        }
+        // TODO: postorderTraversal
     }
     
     free(stack);
-    return result;
+    return result;   
 }

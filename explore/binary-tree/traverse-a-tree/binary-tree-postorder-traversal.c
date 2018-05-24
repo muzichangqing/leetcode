@@ -28,8 +28,25 @@ int* postorderTraversal(struct TreeNode* root, int* returnSize) {
     
     while (stack_top > 0 || cursorNode != NULL) {
         // TODO: postorderTraversal
+        while(cursorNode != NULL) {
+            if (cursorNode->right != NULL) stack[stack_top++] = cursorNode->right;
+            stack[stack_top++] = cursorNode;
+            cursorNode = cursorNode->left;
+        }
+        
+        cursorNode = stack[--stack_top];
+        
+        if (cursorNode->right == stack[stack_top - 1]) {
+            stack_top--;
+            stack[stack_top++] = cursorNode;
+            cursorNode = cursorNode->right;
+        } else {
+            result[(*returnSize)++] = cursorNode->val;
+            cursorNode = NULL;
+        }
+        
     }
     
     free(stack);
-    return result;   
+    return result;
 }

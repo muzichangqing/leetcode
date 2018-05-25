@@ -26,7 +26,10 @@ struct TreeNode *remove_queue(struct Queue queue);
 int is_queue_empty(struct Queue queue);
 
 int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize) {
-    struct Queue queue;
+    struct Queue queue = {
+        NULL,
+        NULL
+    };
     init_queue(queue);
 
     add_queue(queue, root);
@@ -56,31 +59,31 @@ int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize) {
 }
 
 void init_queue(struct Queue queue) {
-    queue->head = NULL;
-    queue->end = NULL;
+    queue.head = NULL;
+    queue.end = NULL;
 }
 
 void add_queue(struct Queue queue, struct TreeNode* element) {
     struct QueueNode *newNode = (struct QueueNode *) malloc (sizeof(struct QueueNode));
     newNode->element = element;
     newNode->next = NULL;
-    if (queue->end == NULL) {
-        queue->head = queue->end = newNode;
+    if (queue.end == NULL) {
+        queue.head = queue.end = newNode;
     } else {
-        queue->end->next = newNode;
+        queue.end->next = newNode;
     }
 }
 
 struct TreeNode *remove_queue(struct Queue queue) {
-    struct TreeNode *element = queue->end->element;
-    free(queue->end);
-    if (queue->head == queue->end) {
-        queue->head == NULL;
+    struct TreeNode *element = queue.end->element;
+    free(queue.end);
+    if (queue.head == queue.end) {
+        queue.head = NULL;
     }
-    queue->end = NULL;
+    queue.end = NULL;
     return element;
 }
 
 int is_queue_empty(struct Queue queue) {
-    return queue->end == NULL;
+    return queue.end == NULL;
 }

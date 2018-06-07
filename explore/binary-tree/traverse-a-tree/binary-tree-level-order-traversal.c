@@ -20,17 +20,14 @@ struct Queue {
     struct QueueNode *head;
     struct QueueNode *end;
 };
-void init_queue(struct Queue queue);
-void add_queue(struct Queue queue, struct TreeNode* element);
-struct TreeNode *remove_queue(struct Queue queue);
-int is_queue_empty(struct Queue queue);
+struct Queue *init_queue();
+void add_queue(struct Queue *queue, struct TreeNode* element);
+struct TreeNode *remove_queue(struct Queue *queue);
+int is_queue_empty(struct Queue *queue);
+void delete_queue(struct Queue *queue);
 
 int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize) {
-    struct Queue queue = {
-        NULL,
-        NULL
-    };
-    init_queue(queue);
+    struct Queue *queue = init_queue();
 
     add_queue(queue, root);
     struct TreeNode *currentNode;
@@ -58,32 +55,41 @@ int** levelOrder(struct TreeNode* root, int** columnSizes, int* returnSize) {
     return NULL;  
 }
 
-void init_queue(struct Queue queue) {
-    queue.head = NULL;
-    queue.end = NULL;
+struct Queue *init_queue() {
+    struct Queue *queue = (struct Queue *) malloc (sizeof(struct Queue));
+    queue->head = queue->end = NULL;
+    return queue;
 }
 
-void add_queue(struct Queue queue, struct TreeNode* element) {
+void add_queue(struct Queue *queue, struct TreeNode* element) {
     struct QueueNode *newNode = (struct QueueNode *) malloc (sizeof(struct QueueNode));
     newNode->element = element;
     newNode->next = NULL;
-    if (queue.end == NULL) {
-        queue.head = queue.end = newNode;
+    if (queue->end == NULL) {
+        queue->head = queue->end = newNode;
     } else {
-        queue.end->next = newNode;
+        queue->end->next = newNode;
     }
 }
 
-struct TreeNode *remove_queue(struct Queue queue) {
-    struct TreeNode *element = queue.end->element;
-    free(queue.end);
-    if (queue.head == queue.end) {
-        queue.head = NULL;
+struct TreeNode *remove_queue(struct Queue *queue) {
+    struct TreeNode *element = queue->end->element;
+    free(queue->end);
+    if (queue->head == queue->end) {
+        queue->head = NULL;
     }
-    queue.end = NULL;
+    queue->end = NULL;
     return element;
 }
 
-int is_queue_empty(struct Queue queue) {
-    return queue.end == NULL;
+int is_queue_empty(struct Queue *queue) {
+    return queue->end == NULL;
 }
+
+void delete_queue(struct Queue *queue) {
+    while (queue->end != NULL) {
+        remove_queue(queue);
+    }
+    free(queue);
+}
+

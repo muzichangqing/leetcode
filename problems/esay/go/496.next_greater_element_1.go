@@ -1,3 +1,5 @@
+package leetcode
+
 func nextGreaterElement(findNums []int, nums []int) []int {
     res := make([]int, len(findNums))
     tmp_map := make(map[int]int)

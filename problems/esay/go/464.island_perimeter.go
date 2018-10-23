@@ -1,3 +1,5 @@
+package leetcode
+
 func islandPerimeter(grid [][]int) int {
     perimeter := 0
     rows := len(grid)

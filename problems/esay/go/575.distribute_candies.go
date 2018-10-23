@@ -1,3 +1,5 @@
+package leetcode
+
 func distributeCandies(candies []int) int {
     max_length := len(candies) / 2
     diff_candies := make([]int, max_length)

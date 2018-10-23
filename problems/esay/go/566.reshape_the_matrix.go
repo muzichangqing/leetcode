@@ -1,3 +1,5 @@
+package leetcode
+
 func matrixReshape(nums [][]int, r int, c int) [][]int {
     rows := len(nums)
     cols := len(nums[0])

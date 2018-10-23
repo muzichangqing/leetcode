@@ -1,5 +1,9 @@
 package leetcode
 
+import (
+    "fmt"
+)
+
 func fizzBuzz(n int) []string {
     res := make([]string, n)
     for i := 1; i <= n; i++ {

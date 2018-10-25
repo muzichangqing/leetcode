@@ -14,11 +14,11 @@ public:
     }
 
     int maxDepthR(TreeNode *root, int depth) {
-    	if (root == NULL) {
-    		return depth;
-    	}
-    	int left_depth = maxDepthR(root->left, depth + 1);
-    	int right_depth = maxDepthR(root->right, depth + 1);
-    	return left_depth > right_depth ? left_depth : right_depth;
+        if (root == NULL) {
+            return depth;
+        }
+        int left_depth = maxDepthR(root->left, depth + 1);
+        int right_depth = maxDepthR(root->right, depth + 1);
+        return left_depth > right_depth ? left_depth : right_depth;
     }
 };

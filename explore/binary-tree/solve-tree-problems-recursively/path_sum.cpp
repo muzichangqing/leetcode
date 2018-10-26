@@ -18,7 +18,6 @@ public:
         if (root == NULL) {
             return false;
         }
-
         currentSum += root->val;
         if (currentSum == sum && root->left == NULL && root->right == NULL) {
             return true;

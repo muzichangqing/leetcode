@@ -20,53 +20,40 @@ struct ListNode
 
 struct ListNode *addTwoNumbers(struct ListNode *l1, struct ListNode *l2)
 {
-    int n1 = 0;
-    int n2 = 0;
-    int i = 0;
-
-    while (l1)
-    {
-        n1 += l1->val * pow10(i);
-        l1 = l1->next;
-        ++i;
-    }
-
-    i = 0;
-    while (l2)
-    {
-        n2 += l2->val * pow10(i);
-        l2 = l2->next;
-        ++i;
-    }
-
-    struct ListNode *rs = (struct ListNode *)malloc(sizeof(struct ListNode));
-    struct ListNode *p = rs;
-
-    int sum = n1 + n2;
-    int mod = sum % 10;
-    sum = sum / 10;
-    p->val = mod;
-    p->next = NULL;
-
-    while (sum)
-    {
-        mod = sum % 10;
-        sum = sum / 10;
-        p->next = (struct ListNode *)malloc(sizeof(struct ListNode));
-        p->next->val = mod;
-        p->next->next = NULL;
+    struct ListNode *p, *lastp;
+    p = l1;
+    int carry = 0;
+    int val2 = 0;
+    while(p) {
+        if (l2) {
+            val2 = l2->val;
+            l2 = l2->next;
+        } else {
+            val2 = 0;
+        }
+        p->val = p->val + val2 + carry;
+        carry = p->val / 10;
+        p->val = p->val % 10;
+        lastp = p;
         p = p->next;
     }
-    return rs;
-}
-
-int pow10(int i)
-{
-    int rs = 1;
-    while (i)
-    {
-        rs *= 10;
-        --i;
+    
+    while(l2) {
+        if (carry) {
+            l2->val = l2->val + carry;
+            carry = l2->val / 10;
+            l2->val = l2->val % 10;
+        }
+        lastp->next = l2;
+        lastp = l2;
+        l2 = l2->next;
     }
-    return rs;
+
+    if (carry) {
+        lastp->next = (struct ListNode *)malloc(sizeof(struct ListNode));
+        lastp->next->next = NULL;
+        lastp->next->val = carry;
+        lastp = lastp->next;
+    }
+    return l1;
 }

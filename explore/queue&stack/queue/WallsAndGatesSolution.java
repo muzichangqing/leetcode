@@ -111,4 +111,8 @@ class Coordinate {
         }
         return x == ((Coordinate) obj).x && y == ((Coordinate) obj).y;
     }
+
+    public int hashCode() {
+        return x * y;
+    }
 }

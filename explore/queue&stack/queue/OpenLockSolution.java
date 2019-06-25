@@ -52,12 +52,4 @@ class OpenLockSolution {
         }
         return -1;
     }
-
-    public static void main(String[] args) {
-        String[] deadends = {"0201","0101","0102","1212","2002"};
-        String target = "0202";
-        TestLeetCode solution = new TestLeetCode();
-        int step = solution.openLock(deadends, target);
-        System.out.println(step);
-    }
 }

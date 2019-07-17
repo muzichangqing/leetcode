@@ -25,7 +25,8 @@ int dict_find_rs;
 #define DICT_OK 1
 #define DICT_ERR 0
 
-int* twoSum(int* nums, int numsSize, int target) {
+int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
+	*returnSize = 0;
 	dict *d = createDict(numsSize);
 	for (int i = 0; i < numsSize; i++) {
 		dictAdd(d, nums[i], i);
@@ -39,6 +40,7 @@ int* twoSum(int* nums, int numsSize, int target) {
 		int *result = (int *)malloc(sizeof(int) * 2);
 		result[0] = i;
 		result[1] = index;
+		*returnSize = 2;
 		return result;
 	}
 	return 0;

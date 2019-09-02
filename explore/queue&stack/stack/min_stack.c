@@ -1,78 +1,82 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 typedef struct {
-    int *data;
-    int top_p;
     int size;
-    MinStack* minDataStack;
+    int* data;
+    int top;
+
+    int minSize;
+    int* minData;
+    int minTop;
 } MinStack;
 
+#define INIT_STACK_SIZE 500
+#define PER_INC_STACK_SIZE 100
 /** initialize your data structure here. */
 
-#define INIT_STACK_SIZE 1000
-#define PER_StACK_INC_SIZE 500
-
 MinStack* minStackCreate() {
-    MinStack* minDataStack = (MinStack *)malloc(sizeof(MinStack));
-    minDataStack->minDataStack = NULL;
-    minDataStack->top_p = -1;
-    minDataStack->size = INIT_STACK_SIZE;
-    minDataStack->data = (int*)malloc(sizeof(int) * INIT_STACK_SIZE);
+    MinStack* obj = (MinStack*)malloc(sizeof(MinStack));
+    
+    obj->size = INIT_STACK_SIZE;
+    obj->data = (int*)malloc(sizeof(int) * obj->size);
+    obj->top = -1;
 
-    MinStack* minStack = (MinStack *)malloc(sizeof(MinStack));
-    minStack->data = (int*)malloc(sizeof(int) * INIT_STACK_SIZE);
-    minStack->top_p = -1;
-    minStack->size = INIT_STACK_SIZE;
-    minStack->minDataStack = minDataStack;
-    return minStack;
+    obj->minSize = INIT_STACK_SIZE;
+    obj->minData = (int*)malloc(sizeof(int) * obj->minSize);
+    obj->minTop = -1;
+
+    return obj;
 }
 
-MinStack* increaseMinStackSize(MinStack* obj) {
-    int* newData = (int*)malloc(sizeof(int) * (obj->size + PER_StACK_INC_SIZE));
-    memcpy(newData, obj->data, sizeof(int) * obj->size);
-    free(obj->data);
-    obj->data = newData;
+MinStack* minStackIncSize(MinStack* obj, int type) {
+    if (type == 1) {
+        int newSize = obj->size + PER_INC_STACK_SIZE;
+        int* newData = (int*)malloc(sizeof(int) * newSize);
+        memcpy(newData, obj->data, obj->size * sizeof(int));
+        free(obj->data);
+        obj->data = newData;
+        obj->size = newSize;
+    } else {
+        int newSize = obj->minSize + PER_INC_STACK_SIZE;
+        int* newData = (int*)malloc(sizeof(int) * newSize);
+        memcpy(newData, obj->minData, obj->minSize * sizeof(int));
+        free(obj->minData);
+        obj->minData = newData;
+        obj->minSize = newSize;
+    }
     return obj;
 }
 
 void minStackPush(MinStack* obj, int x) {
-    if (obj->top_p >= obj->size - 1) {
-        obj = increaseMinStackSize(obj);
+    if (obj->top == obj->size - 1) {
+        minStackIncSize(obj, 1);
     }
-    obj->data[obj->top_p++] = x;
-    if (obj->minDataStack->top_p < 0 || obj->minDataStack->data[obj->minDataStack->top_p] > x) {
-        if (obj->minDataStack->top_p >= obj->minDataStack->size - 1) {
-            obj->minDataStack = increaseMinStackSize(obj->minDataStack);
-        }
-        obj->minDataStack->data[obj->minDataStack->top_p++] = x;
+    obj->data[++(obj->top)] = x;
+    if (obj->minTop < 0 || obj->minData[obj->minTop] >= x) {
+        if (obj->minTop == obj->minSize - 1) minStackIncSize(obj, 2);
+        obj->minData[++(obj->minTop)] = x;
     }
-
 }
 
 void minStackPop(MinStack* obj) {
-    if (obj->top_p < 0) {
-        return;
-    }
-    int popNum = obj->data[obj->top_p--];
-    if (popNum == obj->minDataStack->data[obj->minDataStack->top_p]) {
-        obj->minDataStack->top_p--;
-    }
+    if (obj->top < 0) return;
+    int topValue = obj->data[(obj->top)--];
+    if (obj->minTop < 0) return;
+    if (obj->minData[obj->minTop] == topValue) (obj->minTop)--;
 }
 
 int minStackTop(MinStack* obj) {
-    return obj->data[obj->top_p];
+    return obj->data[obj->top];
 }
 
 int minStackGetMin(MinStack* obj) {
-    return obj->minDataStack[obj->minDataStack->top_p];
+    return obj->minData[obj->minTop];
 }
 
 void minStackFree(MinStack* obj) {
-    free(obj->minDataStack->data);
-    free(obj->minDataStack);
     free(obj->data);
+    free(obj->minData);
     free(obj);
 }
 

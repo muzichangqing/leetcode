@@ -12,5 +12,6 @@ int isValid(char * s){
         if (top != -1 && stack[top] != c && abs(c - stack[top]) < 3) top--;
         else stack[++top] = c;
     }
+    free(stack);
     return top == -1;
 }

@@ -1,6 +1,0 @@
-
-
-char * longestPalindrome(char * s){
-
-}
-

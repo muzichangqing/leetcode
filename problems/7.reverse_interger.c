@@ -1,4 +1,7 @@
+#include <stdlib.h>
+
 int reverse(int x) {
+    if (x == INT_MIN) return 0; // INT_MIN 在 -x 时会溢出
     long result = 0;
     unsigned max = INT_MAX + 1;
     int sign = x > 0 ? 1 : -1;

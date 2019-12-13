@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <limits.h>
 
 int reverse(int x) {
     if (x == INT_MIN) return 0; // INT_MIN 在 -x 时会溢出

@@ -1,4 +1,4 @@
-int pivotIndex(int* nums, int numsSize){
+int pivotIndex(const int* nums, int numsSize){
     if (numsSize == 0) {
         return -1;
     }

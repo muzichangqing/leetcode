@@ -40,7 +40,7 @@ char * addBinary(char * a, char * b){
         cursor2--;
     }
 
-    while((ans - 1) != cursor1) {
+    while((ans - 1) != cursor1 && i > 0) {
          *cursor1 = *cursor1 - 48 + i;
         if (*cursor1 > 1) {
             *cursor1 = '0';

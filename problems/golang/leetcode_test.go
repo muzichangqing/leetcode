@@ -2,6 +2,18 @@ package leetcode
 
 import "testing"
 
+func Test_top_k_frequent(t *testing.T) {
+	nums := []int{1, 1, 1, 2, 2, 3}
+	k := 2
+	topFrequentNums := topKFrequent(nums, k)
+	if len(topFrequentNums) != 2 {
+		t.Fatalf("Error element count return")
+	}
+	if !(topFrequentNums[0] == 1 && topFrequentNums[1] == 2 || topFrequentNums[0] == 2 && topFrequentNums[1] == 1) {
+		t.Fatalf("Error element return")
+	}
+}
+
 func Test_remove_duplicates(t *testing.T) {
 	nums := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
 	newSize := removeDuplicates(nums[:])

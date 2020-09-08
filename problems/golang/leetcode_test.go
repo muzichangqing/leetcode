@@ -2,6 +2,16 @@ package leetcode
 
 import "testing"
 
+func Test_combine(t *testing.T) {
+	n := 1
+	k := 1
+	combines := combine(n, k)
+	if len(combines) != 1 {
+		t.Fatalf("Error combines count return %v", len(combines))
+	}
+	t.Log(combines)
+}
+
 func Test_top_k_frequent(t *testing.T) {
 	nums := []int{1, 1, 1, 2, 2, 3}
 	k := 2

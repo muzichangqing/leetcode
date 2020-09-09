@@ -2,6 +2,13 @@ package leetcode
 
 import "testing"
 
+func Test_combine_test(t *testing.T) {
+	candidates := []int{2, 3, 6, 7}
+	target := 7
+	combines := combinationSum(candidates, target)
+	t.Logf("rs: %v", combines)
+}
+
 func Test_combine(t *testing.T) {
 	n := 1
 	k := 1

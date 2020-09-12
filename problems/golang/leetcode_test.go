@@ -2,6 +2,31 @@ package leetcode
 
 import "testing"
 
+func Test_averageOfLevels(t *testing.T) {
+	root := &TreeNode{
+		Val:  3,
+		Left: &TreeNode{9, nil, nil},
+		Right: &TreeNode{
+			Val:   20,
+			Left:  &TreeNode{15, nil, nil},
+			Right: &TreeNode{7, nil, nil},
+		},
+	}
+	averages := averageOfLevels(root)
+	if len(averages) != 3 {
+		t.Fatalf("Error length return")
+	}
+	if int(averages[0]*10) != 30 {
+		t.Fatal()
+	}
+	if int(averages[1]*10) != 145 {
+		t.Fatal()
+	}
+	if int(averages[2]*10) != 110 {
+		t.Fatal()
+	}
+}
+
 func Test_combine_sum3(t *testing.T) {
 	k := 3
 	n := 9

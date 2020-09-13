@@ -2,6 +2,23 @@ package leetcode
 
 import "testing"
 
+func Test_word_search(t *testing.T) {
+	board := [][]byte{
+		[]byte{'A', 'B', 'C', 'E'},
+		[]byte{'S', 'F', 'C', 'S'},
+		[]byte{'A', 'D', 'E', 'E'},
+	}
+	if !exist(board, "ABCCED") {
+		t.Fatal()
+	}
+	if !exist(board, "SEE") {
+		t.Fatal()
+	}
+	if exist(board, "ABCB") {
+		t.Fatal()
+	}
+}
+
 func Test_averageOfLevels(t *testing.T) {
 	root := &TreeNode{
 		Val:  3,

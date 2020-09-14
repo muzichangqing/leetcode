@@ -2,6 +2,25 @@ package leetcode
 
 import "testing"
 
+func Test_inorder_traversal(t *testing.T) {
+	root := &TreeNode{
+		Val:  1,
+		Left: nil,
+		Right: &TreeNode{
+			Val:   2,
+			Left:  &TreeNode{3, nil, nil},
+			Right: nil,
+		},
+	}
+	nodeVals := inorderTraversal(root)
+	if len(nodeVals) != 3 {
+		t.Fatalf("Error length of result")
+	}
+	if nodeVals[0] != 1 || nodeVals[1] != 3 || nodeVals[2] != 2 {
+		t.Fatalf("Error element of result")
+	}
+}
+
 func Test_word_search(t *testing.T) {
 	board := [][]byte{
 		[]byte{'A', 'B', 'C', 'E'},

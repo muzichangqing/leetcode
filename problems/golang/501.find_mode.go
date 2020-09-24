@@ -24,7 +24,8 @@ func findMode(root *TreeNode) []int {
 	update = func(val int) {
 		if val == base {
 			count++
-			return
+		} else {
+			count, base = 1, val
 		}
 		if count == maxCount {
 			resultVals = append(resultVals, base)
@@ -32,7 +33,6 @@ func findMode(root *TreeNode) []int {
 			maxCount = count
 			resultVals = []int{base}
 		}
-		count, base = 1, val
 	}
 	traverse(root)
 

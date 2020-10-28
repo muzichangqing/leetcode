@@ -1,3 +1,6 @@
+package explore.queue_and_stack.stack;
+
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;

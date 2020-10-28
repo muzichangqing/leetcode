@@ -1,3 +1,5 @@
+package explore.queue_and_stack.queue;
+
 class MyCircularQueue {
 
     private int[] data;

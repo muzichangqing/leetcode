@@ -1,4 +1,6 @@
-public class Solution {
+package explore.queue_and_stack.stack;
+
+public class FindTargetSumWays {
     public int findTargetSumWays(int[] nums, int S) {
         return dfs(nums, 0, S, 1, 0) + dfs(nums, 0, S, 2, 0);
     }
@@ -22,7 +24,7 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        Solution s = new Solution();
+        FindTargetSumWays s = new FindTargetSumWays();
         int[] nums = {1, 1, 1, 1, 1};
         System.out.println(s.findTargetSumWays(nums, 3));
     }

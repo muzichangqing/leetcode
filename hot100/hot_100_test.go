@@ -2,7 +2,7 @@ package hot100
 
 import "testing"
 
-func Test_1_two_sum(t *testing.T) {
+func Test_1_twoSum(t *testing.T) {
 	nums_list := [][]int{
 		{2, 7, 11, 15},
 		{3, 2, 4},
@@ -29,5 +29,20 @@ func Test_1_two_sum(t *testing.T) {
 				result[1] == expected_result[0]) {
 			t.Errorf("correct result is [0, 1] or [1, 0], return is %v", result)
 		}
+	}
+}
+
+func Test_2_addTwoNumbers(t *testing.T) {
+	l1 := &ListNode{2, &ListNode{4, &ListNode{3, nil}}}
+	l2 := &ListNode{5, &ListNode{6, &ListNode{4, nil}}}
+	target := 807
+	lr := addTwoNumbers(l1, l2)
+	sum := 0
+	for rate := 1; lr != nil; lr = lr.Next {
+		sum += lr.Val * rate
+		rate *= 10
+	}
+	if sum != target {
+		t.Errorf("expected %d, got %d", target, sum)
 	}
 }

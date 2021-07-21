@@ -3,9 +3,9 @@
 class Solution {
 
     /**
-     * @param String $s
-     * @param Integer $numRows
-     * @return String
+     * @param string $s
+     * @param int $numRows
+     * @return string
      */
     function convert($s, $numRows) {
         if ($numRows < 2) {

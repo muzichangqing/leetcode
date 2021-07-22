@@ -46,3 +46,22 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return head.Next
 }
+
+// 3.无重复字符的最长字串
+func lengthOfLongestSubstring(s string) int {
+	runes := []rune(s)
+	lolss := 0
+
+	for i, j := 0, 0; j < len(runes); j++ {
+		for k := i; k < j; k++ {
+			if runes[k] == runes[j] {
+				i = k + 1
+			}
+		}
+		if j-i+1 > lolss {
+			lolss = j - i + 1
+		}
+	}
+
+	return lolss
+}

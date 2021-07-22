@@ -46,3 +46,21 @@ func Test_2_addTwoNumbers(t *testing.T) {
 		t.Errorf("expected %d, got %d", target, sum)
 	}
 }
+
+func Test_3_lengthOfLongestSubstring(t *testing.T) {
+	str_list := []string{
+		"abcabcbb",
+		"bbbbb",
+		"pwwkew",
+		"",
+		" ",
+	}
+	result_list := []int{3, 1, 3, 0, 1}
+
+	for index, str := range str_list {
+		result := lengthOfLongestSubstring(str)
+		if result != result_list[index] {
+			t.Errorf("%s length of lonhest sub-string is %d, got %d", str, result_list[index], result)
+		}
+	}
+}

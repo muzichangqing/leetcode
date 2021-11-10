@@ -70,3 +70,21 @@ func TestSortList(t *testing.T) {
 		t.Fatalf("SortList err")
 	}
 }
+
+func TestNextPermutation(t *testing.T) {
+	nums := []int{1, 2, 3}
+	cAns := []int{1, 3, 2}
+	nextPermutation(nums)
+	if !sliceEqual(nums, cAns) {
+		t.Fatalf("%v √  %v ×", cAns, nums)
+	}
+}
+
+func TestMinWindow(t *testing.T) {
+	s := "ADOBECODEBANC"
+	st := "ABC"
+	cAns := "BANC"
+	if ans := minWindow(s, st); ans != cAns {
+		t.Fatalf("%s √  %s ×", cAns, ans)
+	}
+}

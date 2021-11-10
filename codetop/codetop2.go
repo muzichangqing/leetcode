@@ -167,3 +167,35 @@ func sortList(head *ListNode) *ListNode {
 	}
 	return mergeSort(head)
 }
+
+// 31. 下一个排列
+func nextPermutation(nums []int) {
+	i := len(nums) - 2
+	for i >= 0 {
+		if nums[i+1] > nums[i] {
+			break
+		}
+		i--
+	}
+	if i >= 0 {
+		for j := len(nums) - 1; j > i; j-- {
+			if nums[j] > nums[i] {
+				nums[j], nums[i] = nums[i], nums[j]
+				break
+			}
+		}
+	}
+
+	i++
+	j := len(nums) - 1
+	for i < j {
+		nums[i], nums[j] = nums[j], nums[i]
+		i++
+		j--
+	}
+}
+
+//76. 最小覆盖子串
+func minWindow(s string, t string) string {
+	return s
+}

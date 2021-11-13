@@ -1,6 +1,9 @@
 package codetop
 
-import "math"
+import (
+	"math"
+	"strings"
+)
 
 //8. 字符串转换整数(atoi)
 func myAtoi(s string) int {
@@ -197,5 +200,63 @@ func nextPermutation(nums []int) {
 
 //76. 最小覆盖子串
 func minWindow(s string, t string) string {
-	return s
+	cur := make(map[byte]int)
+	ori := make(map[byte]int)
+	for _, c := range []byte(t) {
+		ori[c] += 1
+	}
+	check := func() bool {
+		for c, n := range ori {
+			if cur[c] < n {
+				return false
+			}
+		}
+		return true
+	}
+	var lo, hi int
+	ansL, ansR := -1, -1
+	length := math.MaxInt32
+	sLen := len(s)
+	for hi < sLen {
+		if ori[s[hi]] > 0 {
+			cur[s[hi]]++
+		}
+		for check() && lo <= hi {
+			if hi-lo+1 < length {
+				length = hi - lo + 1
+				ansL, ansR = lo, hi
+			}
+			if cur[s[lo]] > 0 {
+				cur[s[lo]]--
+			}
+			lo++
+		}
+		hi++
+	}
+	if ansL == -1 {
+		return ""
+	}
+
+	return s[ansL : ansR+1]
+}
+
+// 151. 翻转字符串里的单词
+func reverseWords(s string) string {
+	words := []string{}
+	l := -1
+	for i, c := range s {
+		if c == ' ' && l != -1 {
+			words = append(words, s[l:i])
+			l = -1
+		} else if c != ' ' && l == -1 {
+			l = i
+		}
+	}
+	if l != -1 {
+		words = append(words, s[l:])
+	}
+	for i, j := 0, len(words)-1; i < j; i, j = i+1, j-1 {
+		words[i], words[j] = words[j], words[i]
+	}
+	return strings.Join(words, " ")
 }

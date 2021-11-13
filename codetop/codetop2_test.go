@@ -88,3 +88,11 @@ func TestMinWindow(t *testing.T) {
 		t.Fatalf("%s √  %s ×", cAns, ans)
 	}
 }
+
+func TestReverseWords(t *testing.T) {
+	s := "   Bob   Loves   Alice   "
+	cAns := "Alice Loves Bob"
+	if ans := reverseWords(s); ans != cAns {
+		t.Fatalf("%s √  %s ×", cAns, ans)
+	}
+}

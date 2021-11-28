@@ -96,3 +96,9 @@ func TestReverseWords(t *testing.T) {
 		t.Fatalf("%s √  %s ×", cAns, ans)
 	}
 }
+
+func TestMinDistance(t *testing.T) {
+	if ans := minDistance("horse", "ros"); ans != 3 {
+		t.Fatalf("%d √  %d ×", 3, ans)
+	}
+}

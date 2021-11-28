@@ -293,3 +293,87 @@ func minDistance(word1 string, word2 string) int {
 	}
 	return dp[len1][len2]
 }
+
+// 105. 从前序与中序遍历序列构造二叉树
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+	root := &TreeNode{Val: preorder[0]}
+	i := 0
+	for ; i < len(inorder); i++ {
+		if preorder[0] == inorder[i] {
+			break
+		}
+	}
+	root.Left = buildTree(preorder[1:i+1], inorder[0:i])
+	root.Right = buildTree(preorder[i+1:], inorder[i+1:])
+	return root
+}
+
+// 4. 寻找两个正序数组的中位数
+func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	if len(nums1) > len(nums2) {
+		return findMedianSortedArrays(nums2, nums1)
+	}
+	m, n := len(nums1), len(nums2)
+	k := (m + n + 1) / 2
+
+	max := func(x, y int) int {
+		if x > y {
+			return x
+		}
+		return y
+	}
+	min := func(x, y int) int {
+		if x > y {
+			return y
+		}
+		return x
+	}
+	left, right := 0, m
+	for left < right {
+		i := (left + right + 1) / 2
+		j := k - i
+		if nums1[i-1] > nums2[j] {
+			right = i - 1
+		} else {
+			left = i
+		}
+	}
+
+	i, j := left, k-left
+	nums1Left := math.MinInt32
+	if i != 0 {
+		nums1Left = nums1[i-1]
+	}
+	nums2Left := math.MinInt32
+	if j != 0 {
+		nums2Left = nums2[j-1]
+	}
+	if (m+n)%2 == 1 {
+		return float64(max(nums1Left, nums2Left))
+	}
+	nums1Right := math.MaxInt32
+	if i != m {
+		nums1Right = nums1[i]
+	}
+	nums2Right := math.MaxInt32
+	if j != n {
+		nums2Right = nums2[j]
+	}
+	return float64(max(nums1Left, nums2Left)+min(nums1Right, nums2Right)) / 2.0
+}
+
+// 104. 二叉树的最大深度
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	left := maxDepth(root.Left)
+	right := maxDepth(root.Right)
+	if left > right {
+		return left + 1
+	}
+	return right + 1
+}

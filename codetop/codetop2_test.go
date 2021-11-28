@@ -102,3 +102,21 @@ func TestMinDistance(t *testing.T) {
 		t.Fatalf("%d √  %d ×", 3, ans)
 	}
 }
+
+func TestBuildTree(t *testing.T) {
+	buildTree([]int{3, 9, 20, 15, 7},
+		[]int{3, 9, 20, 15, 7})
+}
+
+func TestFindMedianSortedArrays(t *testing.T) {
+	nums1 := []int{1, 3, 4, 9}
+	nums2 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	ans := 4.0
+	if rs := findMedianSortedArrays(nums1, nums2); math.Abs(rs-ans) > 1.0e-5 {
+		t.Fatalf("%.2f √  %.2f ×", ans, rs)
+	}
+}
+
+func TestMaxDepth(t *testing.T) {
+	maxDepth(nil)
+}

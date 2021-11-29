@@ -377,3 +377,54 @@ func maxDepth(root *TreeNode) int {
 	}
 	return right + 1
 }
+
+// 1143. 最长公共子序列
+func longestCommonSubsequence(text1 string, text2 string) int {
+	m, n := len(text1), len(text2)
+	dp := make([][]int, m+1)
+	for i := range dp {
+		dp[i] = make([]int, n+1)
+	}
+	for i := 1; i <= m; i++ {
+		for j := 1; j <= n; j++ {
+			if text1[i-1] == text2[j-1] {
+				dp[i][j] = dp[i-1][j-1] + 1
+			} else if dp[i-1][j] > dp[i][j-1] {
+				dp[i][j] = dp[i-1][j]
+			} else {
+				dp[i][j] = dp[i][j-1]
+			}
+		}
+	}
+	return dp[m][n]
+}
+
+// 110. 平衡二叉树
+func isBalanced(root *TreeNode) bool {
+	max := func(x, y int) int {
+		if x > y {
+			return x
+		}
+		return y
+	}
+	var height func(*TreeNode) (int, bool)
+	height = func(root *TreeNode) (int, bool) {
+		if root == nil {
+			return 0, true
+		}
+		lHeight, blance := height(root.Left)
+		if !blance {
+			return 0, false
+		}
+		rHeight, blance := height(root.Right)
+		if !blance {
+			return 0, false
+		}
+		if math.Abs(float64(lHeight-rHeight)) > 1 {
+			return 0, false
+		}
+		return max(lHeight, rHeight) + 1, true
+	}
+	_, blanced := height(root)
+	return blanced
+}

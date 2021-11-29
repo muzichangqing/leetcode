@@ -120,3 +120,15 @@ func TestFindMedianSortedArrays(t *testing.T) {
 func TestMaxDepth(t *testing.T) {
 	maxDepth(nil)
 }
+
+func TestLongestCommonSubsequence(t *testing.T) {
+	text1 := "abcde"
+	text2 := "ace"
+	if ans := longestCommonSubsequence(text1, text2); ans != 3 {
+		t.Fatalf("%d √  %d ×", 3, ans)
+	}
+}
+
+func TestIsBalanced(t *testing.T) {
+	isBalanced(nil)
+}

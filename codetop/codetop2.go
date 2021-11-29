@@ -1,6 +1,7 @@
 package codetop
 
 import (
+	"container/heap"
 	"math"
 	"strings"
 )
@@ -427,4 +428,54 @@ func isBalanced(root *TreeNode) bool {
 	}
 	_, blanced := height(root)
 	return blanced
+}
+
+// 239. 滑动窗口最大值
+
+type hp struct {
+	data [][2]int
+}
+
+func (h *hp) Len() int {
+	return len(h.data)
+}
+
+func (h *hp) Less(i, j int) bool {
+	return h.data[i][1] > h.data[j][1]
+}
+
+func (h *hp) Push(x interface{}) {
+	h.data = append(h.data, x.([2]int))
+}
+
+func (h *hp) Pop() interface{} {
+	x := h.data[len(h.data)-1]
+	h.data = h.data[:len(h.data)-1]
+	return x
+}
+
+func (h *hp) Swap(i, j int) {
+	h.data[i], h.data[j] = h.data[j], h.data[i]
+}
+
+func maxSlidingWindow(nums []int, k int) []int {
+	numsLength := len(nums)
+	ans := make([]int, 1, numsLength-k+1)
+
+	h := &hp{data: make([][2]int, k)}
+	for i := 0; i < k; i++ {
+		h.data[i] = [2]int{i, nums[i]}
+	}
+	heap.Init(h)
+	ans[0] = h.data[0][1]
+
+	for i := k; i < numsLength; i++ {
+		heap.Push(h, [2]int{i, nums[i]})
+		for h.data[0][0] <= i-k {
+			heap.Pop(h)
+		}
+		ans = append(ans, h.data[0][1])
+	}
+
+	return ans
 }

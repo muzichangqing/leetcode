@@ -3,6 +3,7 @@ package codetop
 import (
 	"container/heap"
 	"math"
+	"strconv"
 	"strings"
 )
 
@@ -431,7 +432,6 @@ func isBalanced(root *TreeNode) bool {
 }
 
 // 239. 滑动窗口最大值
-
 type hp struct {
 	data [][2]int
 }
@@ -477,5 +477,48 @@ func maxSlidingWindow(nums []int, k int) []int {
 		ans = append(ans, h.data[0][1])
 	}
 
+	return ans
+}
+
+// 93. 复原 IP 地址
+func restoreIpAddresses(s string) []string {
+	ans := []string{}
+	const SEG_COUNT = 4
+	segs := [SEG_COUNT]int{}
+	sLen := len(s)
+
+	var dfs func(int, int)
+	dfs = func(segId, sIndex int) {
+		if segId == SEG_COUNT {
+			if sIndex == sLen {
+				addr := ""
+				for _, seg := range segs {
+					addr += strconv.Itoa(seg)
+					addr += "."
+				}
+				ans = append(ans, strings.TrimRight(addr, "."))
+			}
+			return
+		}
+		if sIndex == sLen {
+			return
+		}
+		if s[sIndex] == '0' {
+			segs[segId] = 0
+			dfs(segId+1, sIndex+1)
+			return
+		}
+		seg := 0
+		for i := sIndex; i < sLen; i++ {
+			seg = seg*10 + int(s[i]-'0')
+			if seg > 0 && seg <= 0xFF {
+				segs[segId] = seg
+				dfs(segId+1, i+1)
+			} else {
+				break
+			}
+		}
+	}
+	dfs(0, 0)
 	return ans
 }

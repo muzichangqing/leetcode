@@ -147,3 +147,9 @@ func TestMaxSlidingWindow(t *testing.T) {
 		}
 	}
 }
+
+func TestRestoreIpAddresses(t *testing.T) {
+	s := "25525511135"
+	ans := restoreIpAddresses(s)
+	t.Logf("%v", ans)
+}

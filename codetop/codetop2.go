@@ -3,8 +3,10 @@ package codetop
 import (
 	"container/heap"
 	"math"
+	"math/rand"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //8. 字符串转换整数(atoi)
@@ -521,4 +523,72 @@ func restoreIpAddresses(s string) []string {
 	}
 	dfs(0, 0)
 	return ans
+}
+
+// 129. 求根节点到叶节点数字之和
+func sumNumbers(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	ans := 0
+	var dfs func(*TreeNode, int)
+	dfs = func(node *TreeNode, num int) {
+		num = num*10 + node.Val
+		if node.Left == nil && node.Right == nil {
+			ans += num
+			return
+		}
+		if node.Left != nil {
+			dfs(node.Left, num)
+		}
+		if node.Right != nil {
+			dfs(node.Right, num)
+		}
+	}
+	dfs(root, 0)
+	return ans
+}
+
+// 113. 路径总和 II
+func pathSum(root *TreeNode, targetSum int) [][]int {
+	ans := [][]int{}
+
+	var dfs func(*TreeNode, int, []int)
+	dfs = func(tn *TreeNode, sum int, path []int) {
+		sum += tn.Val
+		path = append(path, tn.Val)
+		defer func() { path = path[:len(path)-1] }()
+		if tn.Left == nil && tn.Right == nil {
+			if sum == targetSum {
+				ans = append(ans, append([]int{}, path...))
+			}
+			return
+		}
+		if tn.Left != nil {
+			dfs(tn.Left, sum, path)
+		}
+
+		if tn.Right != nil {
+			dfs(tn.Right, sum, path)
+		}
+	}
+
+	if root != nil {
+		dfs(root, 0, []int{})
+	}
+	return ans
+}
+
+// 470. 用 Rand7() 实现 Rand10()
+func rand10() int {
+	x, y := rand7(), rand7()
+	for (x-1)*7+y-1 >= 40 {
+		x, y = rand7(), rand7()
+	}
+	return ((x-1)*7+y-1)%10 + 1
+}
+
+func rand7() int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(7) + 1
 }

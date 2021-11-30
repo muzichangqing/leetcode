@@ -153,3 +153,27 @@ func TestRestoreIpAddresses(t *testing.T) {
 	ans := restoreIpAddresses(s)
 	t.Logf("%v", ans)
 }
+
+func TestSumNumbers(t *testing.T) {
+	root := &TreeNode{
+		Val:   1,
+		Left:  &TreeNode{Val: 2},
+		Right: &TreeNode{Val: 3},
+	}
+	if ans := sumNumbers(root); ans != 25 {
+		t.Fatalf("%v √   %v ×", 25, ans)
+	}
+}
+
+func TestPathSum(t *testing.T) {
+	root := &TreeNode{
+		Val:   1,
+		Left:  &TreeNode{Val: 2},
+		Right: &TreeNode{Val: 3},
+	}
+	pathSum(root, 3)
+}
+
+func TestRand10(t *testing.T) {
+	t.Logf("%d, %d, %d", rand10(), rand10(), rand10())
+}

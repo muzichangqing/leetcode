@@ -2,3 +2,4 @@ test/
 problems/test/
 .vscode/*
 .idea/*
+venv/

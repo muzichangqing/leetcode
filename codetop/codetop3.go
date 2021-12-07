@@ -292,3 +292,144 @@ func combinationSum(candidates []int, target int) [][]int {
 	backtrace(0, target)
 	return ans
 }
+
+// 153. 寻找旋转排序数组中的最小值
+func findMin(nums []int) int {
+	l, r := 0, len(nums)-1
+	if nums[l] < nums[r] {
+		return nums[l]
+	}
+	for l < r {
+		mid := l + (r-l)/2
+		if nums[mid] < nums[r] {
+			r = mid
+		} else {
+			l = mid + 1
+		}
+	}
+
+	return nums[l]
+}
+
+// 912. 排序数组
+func sortArray(nums []int) []int {
+	var maxHeapify func(index, length int)
+	maxHeapify = func(index, length int) {
+		left := 2*index + 1
+		right := left + 1
+		if left > length {
+			return
+		}
+		maxIndex := left
+		if right <= length && nums[right] > nums[left] {
+			maxIndex = right
+		}
+		if nums[maxIndex] > nums[index] {
+			nums[index], nums[maxIndex] = nums[maxIndex], nums[index]
+			maxHeapify(maxIndex, length)
+		}
+	}
+
+	length := len(nums) - 1
+	for i := (length - 1) >> 1; i >= 0; i-- {
+		maxHeapify(i, length)
+	}
+
+	for i := length; i > 0; i-- {
+		nums[0], nums[i] = nums[i], nums[0]
+		maxHeapify(0, i-1)
+	}
+
+	return nums
+}
+
+// 128. 最长连续序列
+func longestConsecutive(nums []int) int {
+	numsSet := make(map[int]bool)
+	for _, num := range nums {
+		numsSet[num] = true
+	}
+	longest := 0
+	for num := range numsSet {
+		currentNum := num
+		currentLength := 1
+		if numsSet[currentNum-1] {
+			continue
+		}
+		for numsSet[currentNum+1] {
+			currentLength++
+			currentNum++
+		}
+		if currentLength > longest {
+			longest = currentLength
+		}
+	}
+	return longest
+}
+
+// 62. 不同路径
+func uniquePaths(m int, n int) int {
+	dp := make([][]int, m)
+	for i := range dp {
+		row := make([]int, n)
+		dp[i] = row
+		dp[i][0] = 1
+	}
+	for i := range dp[0] {
+		dp[0][i] = 1
+	}
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			dp[i][j] = dp[i-1][j] + dp[i][j-1]
+		}
+	}
+	return dp[m-1][n-1]
+}
+
+// 468. 验证IP地址
+func validIPAddress(queryIP string) string {
+	var (
+		neither = "Neither"
+		ipv4    = "IPv4"
+		ipv6    = "IPv6"
+	)
+	if strings.Contains(queryIP, ".") {
+		segs := strings.Split(queryIP, ".")
+		if len(segs) != 4 {
+			return neither
+		}
+		for i, seg := range segs {
+			num, err := strconv.Atoi(seg)
+			if err != nil {
+				return neither
+			}
+			if num > 255 || num < 0 || i == 0 && num == 0 {
+				return neither
+			}
+			if num != 0 && seg[0] == '0' || num == 0 && len(seg) > 1 {
+				return neither
+			}
+		}
+		return ipv4
+	} else if strings.Contains(queryIP, ":") {
+		segs := strings.Split(queryIP, ":")
+		if len(segs) != 8 {
+			return neither
+		}
+		for _, seg := range segs {
+			if len(seg) > 4 || len(seg) < 1 {
+				return neither
+			}
+			trimSeg := strings.TrimLeft(seg, "0")
+			if trimSeg == "" {
+				continue
+			}
+			num, err := strconv.ParseInt(trimSeg, 16, 0)
+			if err != nil || num < 0 {
+				return neither
+			}
+		}
+		return ipv6
+	}
+	return neither
+}

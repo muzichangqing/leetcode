@@ -115,3 +115,22 @@ func TestQuickSort(t *testing.T) {
 		}
 	}
 }
+
+func TestHeapSort(t *testing.T) {
+	numsList := [][]int{
+		{},
+		{1},
+		{31, 41, 59, 26, 41, 58},
+	}
+	t.Log("开始测试快速排序")
+	for _, nums := range numsList {
+		t.Logf("排序前：%v", nums)
+		heapSort(nums)
+		t.Logf("排序后：%v", nums)
+		for i := 0; i < len(nums)-1; i++ {
+			if nums[i] > nums[i+1] {
+				t.Errorf("排序错误：nums[%d] > nums[%d]", i, i+1)
+			}
+		}
+	}
+}

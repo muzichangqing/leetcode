@@ -132,3 +132,34 @@ func myQuickSortPartition(nums []int, lo, hi int) int {
 	nums[i+1], nums[hi] = nums[hi], nums[i+1]
 	return i + 1
 }
+
+// 堆排序
+func heapSort(nums []int) {
+
+	var maxHeapify func(index, length int)
+	maxHeapify = func(index, length int) {
+		left := 2*index + 1
+		right := left + 1
+		if left > length {
+			return
+		}
+		maxIndex := left
+		if right <= length && nums[right] > nums[left] {
+			maxIndex = right
+		}
+		if nums[maxIndex] > nums[index] {
+			nums[index], nums[maxIndex] = nums[maxIndex], nums[index]
+			maxHeapify(maxIndex, length)
+		}
+	}
+
+	length := len(nums) - 1
+	for i := (length - 1) >> 1; i >= 0; i-- {
+		maxHeapify(i, length)
+	}
+
+	for i := length; i > 0; i-- {
+		nums[0], nums[i] = nums[i], nums[0]
+		maxHeapify(0, i-1)
+	}
+}

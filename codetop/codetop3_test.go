@@ -1,6 +1,8 @@
 package codetop
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestCodeTop(t *testing.T) {
 	isSymmetric(nil)
@@ -50,4 +52,54 @@ func TestDeleteDuplicates2(t *testing.T) {
 
 func TestCombinationSum(t *testing.T) {
 	t.Log(combinationSum([]int{2, 6, 3, 7}, 7))
+}
+
+func TestFindMin(t *testing.T) {
+	nums := []int{4, 5, 6, 7, 0, 1, 2}
+	res := 0
+	if ans := findMin(nums); ans != res {
+		t.Errorf("expected %d, got %d", res, ans)
+	}
+}
+
+func TestSortArray(t *testing.T) {
+	numsList := [][]int{
+		{},
+		{1},
+		{31, 41, 59, 26, 41, 58},
+	}
+	for _, nums := range numsList {
+		t.Logf("排序前：%v", nums)
+		sortArray(nums)
+		t.Logf("排序后：%v", nums)
+		for i := 0; i < len(nums)-1; i++ {
+			if nums[i] > nums[i+1] {
+				t.Errorf("排序错误：nums[%d] > nums[%d]", i, i+1)
+			}
+		}
+	}
+}
+
+func TestLongestConsecutive(t *testing.T) {
+	nums := []int{0, 3, 7, 2, 5, 8, 4, 6, 0, 1}
+	res := 9
+	if ans := longestConsecutive(nums); ans != res {
+		t.Errorf("expected %d, got %d", res, ans)
+	}
+}
+
+func TestUniquePaths(t *testing.T) {
+	m, n := 3, 7
+	res := 28
+	if ans := uniquePaths(m, n); ans != res {
+		t.Errorf("expected %d, got %d", res, ans)
+	}
+}
+
+func TestValidIpAddress(t *testing.T) {
+	ip := "2001:db8:85a3:0::8a2E:0370:7334"
+	res := "Neither"
+	if ans := validIPAddress(ip); ans != res {
+		t.Errorf("expected %s, got %s", res, ans)
+	}
 }

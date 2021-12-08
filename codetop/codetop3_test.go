@@ -1,6 +1,7 @@
 package codetop
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -12,6 +13,12 @@ func TestCodeTop(t *testing.T) {
 	majorityElement([]int{3, 2, 3})
 	t.Log(multiply("123", "456"))
 	invertTree(nil)
+	searchMatrix([][]int{}, 0)
+	maximalSquare([][]byte{})
+	findPeakElement([]int{})
+	longestCommonPrefix([]string{})
+	maxAreaOfIsland([][]int{})
+	largestNumber([]int{})
 }
 
 func TestMinPathSum(t *testing.T) {
@@ -102,4 +109,18 @@ func TestValidIpAddress(t *testing.T) {
 	if ans := validIPAddress(ip); ans != res {
 		t.Errorf("expected %s, got %s", res, ans)
 	}
+}
+
+func TestSingleNumber(t *testing.T) {
+	nums := []int{4, 2, 1, 2, 1}
+	res := 4
+	if ans := singleNumber(nums); ans != res {
+		t.Errorf("expected %d, got %d", res, ans)
+	}
+}
+
+func TestStringCompare(t *testing.T) {
+	s1 := "3340"
+	s2 := "334"
+	t.Log(strings.Compare(s1, s2))
 }

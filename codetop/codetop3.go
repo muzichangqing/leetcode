@@ -1,6 +1,7 @@
 package codetop
 
 import (
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -432,4 +433,153 @@ func validIPAddress(queryIP string) string {
 		return ipv6
 	}
 	return neither
+}
+
+// 136. 只出现一次的数字
+func singleNumber(nums []int) int {
+	single := 0
+	for _, num := range nums {
+		single ^= num
+	}
+	return single
+}
+
+// 240. 搜索二维矩阵 II
+func searchMatrix(matrix [][]int, target int) bool {
+	m, n := len(matrix), len(matrix[0])
+	x, y := 0, n-1
+	for x < m && y >= 0 {
+		if matrix[x][y] == target {
+			return true
+		} else if matrix[x][y] > target {
+			y--
+		} else {
+			x++
+		}
+	}
+	return false
+}
+
+// 221. 最大正方形
+func maximalSquare(matrix [][]byte) int {
+	min := func(x, y int) int {
+		if x > y {
+			return y
+		}
+		return x
+	}
+	m, n := len(matrix), len(matrix[0])
+	dp := make([][]int, m)
+	maxSide := 0
+	for i := range dp {
+		dp[i] = make([]int, n)
+		for j := range dp[i] {
+			dp[i][j] = int(matrix[i][j] - '0')
+			if dp[i][j] > maxSide {
+				maxSide = dp[i][j]
+			}
+		}
+	}
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if dp[i][j] == 1 {
+				dp[i][j] = min(min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]) + 1
+				if dp[i][j] > maxSide {
+					maxSide = dp[i][j]
+				}
+			}
+
+		}
+	}
+	return maxSide * maxSide
+}
+
+// 162. 寻找峰值
+func findPeakElement(nums []int) int {
+	n := len(nums)
+	get := func(i int) int {
+		if i == -1 || i == n {
+			return math.MinInt64
+		}
+		return nums[i]
+	}
+	l, r := 0, n-1
+	for {
+		mid := (l + r) >> 1
+		if get(mid) > get(mid-1) && get(mid) > get(mid+1) {
+			return mid
+		}
+		if get(mid) < get(mid-1) {
+			r = mid - 1
+		} else {
+			l = mid + 1
+		}
+	}
+}
+
+// 14. 最长公共前缀
+func longestCommonPrefix(strs []string) string {
+	longestCommonPrefixOfTwo := func(str1, str2 string) string {
+		m, n := len(str1), len(str2)
+		i := 0
+		for i < m && i < n {
+			if str1[i] == str2[i] {
+				i++
+			} else {
+				break
+			}
+		}
+		if i == 0 {
+			return ""
+		}
+		return str1[:i]
+	}
+	prefix := strs[0]
+	n := len(strs)
+	for i := 1; i < n; i++ {
+		prefix = longestCommonPrefixOfTwo(prefix, strs[i])
+		if prefix == "" {
+			return prefix
+		}
+	}
+	return prefix
+}
+
+// 695. 岛屿的最大面积
+func maxAreaOfIsland(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
+	var dfs func(i, j int) int
+	dfs = func(i, j int) int {
+		if i < 0 || j < 0 || i >= m || j >= n || grid[i][j] == 0 {
+			return 0
+		}
+		grid[i][j] = 0
+		return dfs(i+1, j) + dfs(i, j+1) + dfs(i-1, j) + dfs(i, j-1) + 1
+	}
+	maxArea := 0
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if area := dfs(i, j); area > maxArea {
+				maxArea = area
+			}
+		}
+	}
+	return maxArea
+}
+
+// 179. 最大数
+func largestNumber(nums []int) string {
+	sort.Slice(nums, func(i, j int) bool {
+		num1 := strconv.Itoa(nums[i])
+		num2 := strconv.Itoa(nums[j])
+		return num1+num2 > num2+num1
+	})
+	if nums[0] == 0 {
+		return "0"
+	}
+	number := ""
+	for _, num := range nums {
+		number += strconv.Itoa(num)
+	}
+	return number
 }

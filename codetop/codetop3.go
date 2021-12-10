@@ -583,3 +583,196 @@ func largestNumber(nums []int) string {
 	}
 	return number
 }
+
+// 227. 基本计算器 II
+func calculate(s string) int {
+	numStack := []int{}
+	numStackTop := -1
+	operatorStack := []byte{}
+	operatorStackTop := -1
+
+	num := -1
+	operator := byte(0)
+	bs := append([]byte(s), ' ')
+	for _, b := range bs {
+		if b >= '0' && b <= '9' {
+			if num == -1 {
+				num = int(b - '0')
+			} else {
+				num = num*10 + int(b-'0')
+			}
+		} else {
+			if num != -1 {
+				if operator == '*' {
+					numStack[numStackTop] *= num
+					operator = byte(0)
+				} else if operator == '/' {
+					numStack[numStackTop] /= num
+					operator = byte(0)
+				} else {
+					numStackTop++
+					numStack = append(numStack, num)
+				}
+				num = -1
+			}
+			if b == ' ' {
+				continue
+			} else if b == '+' || b == '-' {
+				operatorStackTop++
+				operatorStack = append(operatorStack, b)
+			} else {
+				operator = b
+			}
+		}
+	}
+	i := 0
+	for _, operator := range operatorStack {
+		if operator == '+' {
+			numStack[i+1] = numStack[i] + numStack[i+1]
+		} else {
+			numStack[i+1] = numStack[i] - numStack[i+1]
+		}
+		i++
+	}
+	return numStack[i]
+}
+
+// 958. 二叉树的完全性检验
+func isCompleteTree(root *TreeNode) bool {
+	queue := []*TreeNode{root}
+	for len(queue) != 0 {
+		newQueue := []*TreeNode{}
+		for i, node := range queue {
+			if node == nil {
+				for _, node := range newQueue {
+					if node != nil {
+						return false
+					}
+				}
+				for j := i + 1; j < len(queue); j++ {
+					if queue[j] != nil {
+						return false
+					}
+				}
+				return true
+			} else {
+				newQueue = append(newQueue, node.Left, node.Right)
+			}
+		}
+		queue = newQueue
+	}
+	return true
+}
+
+// 剑指 Offer 54. 二叉搜索树的第k大节点
+func kthLargest(root *TreeNode, k int) int {
+	var dfs func(node *TreeNode) (int, bool)
+	dfs = func(node *TreeNode) (int, bool) {
+		if node == nil {
+			return 0, false
+		}
+		ans, isAns := dfs(node.Right)
+		if isAns {
+			return ans, isAns
+		}
+		k--
+		if k == 0 {
+			return node.Val, true
+		}
+		ans, isAns = dfs(node.Left)
+		if isAns {
+			return ans, isAns
+		}
+		return 0, false
+	}
+	ans, _ := dfs(root)
+	return ans
+}
+
+type Node struct {
+	Val    int
+	Next   *Node
+	Random *Node
+}
+
+// 138. 复制带随机指针的链表
+func copyRandomList(head *Node) *Node {
+	nodePointerMap := make(map[*Node]*Node)
+	for cur := head; cur != nil; cur = cur.Next {
+		newNode := &Node{Val: cur.Val}
+		nodePointerMap[cur] = newNode
+
+	}
+
+	dummyHead := &Node{}
+	pre, cur := dummyHead, head
+	for cur != nil {
+		newNode := nodePointerMap[cur]
+		newNode.Random = nodePointerMap[cur.Random]
+		pre.Next = newNode
+		pre, cur = newNode, cur.Next
+	}
+
+	return dummyHead.Next
+}
+
+// 394. 字符串解码
+func decodeString(s string) string {
+	stack := []byte{}
+	for _, b := range []byte(s) {
+		if b == ']' {
+			// 找到[]中的字符串
+			top := len(stack) - 1
+			bs := []byte{}
+			for {
+				tb := stack[top]
+				top--
+				if tb == '[' {
+					break
+				}
+				bs = append(bs, tb)
+			}
+			bsLen := len(bs)
+			for i := 0; i < bsLen/2; i++ {
+				bs[i], bs[bsLen-1-i] = bs[bsLen-1-i], bs[i]
+			}
+			// 找到[]前的数字
+			counter, i := 0, 1
+			for top >= 0 {
+				tb := stack[top]
+				if tb >= '0' && tb <= '9' {
+					counter += int(tb-'0') * i
+					i *= 10
+					top--
+				} else {
+					break
+				}
+			}
+			// 弹出
+			stack = stack[:top+1]
+			// 压入
+			for counter > 0 {
+				counter--
+				stack = append(stack, bs...)
+			}
+		} else {
+			stack = append(stack, b)
+		}
+	}
+	return string(stack)
+}
+
+// 24. 两两交换链表中的节点
+func swapPairs(head *ListNode) *ListNode {
+	dummy := &ListNode{0, head}
+	cur := dummy
+	for cur.Next != nil && cur.Next.Next != nil {
+		prev := cur.Next
+		after := cur.Next.Next
+		cur.Next = after
+		prev.Next = after.Next
+		after.Next = prev
+		cur = prev
+	}
+	return dummy.Next
+}

@@ -22,6 +22,14 @@ func createLinkedList(nums []int) *ListNode {
 	return head.Next
 }
 
+func createSliceFromLinkedList(head *ListNode) []int {
+	res := []int{}
+	for cur := head; cur != nil; cur = cur.Next {
+		res = append(res, cur.Val)
+	}
+	return res
+}
+
 func listNodeEqual(l1 *ListNode, l2 *ListNode) bool {
 	c1, c2 := l1, l2
 	for c1 != nil && c2 != nil {

@@ -19,6 +19,9 @@ func TestCodeTop(t *testing.T) {
 	longestCommonPrefix([]string{})
 	maxAreaOfIsland([][]int{})
 	largestNumber([]int{})
+	isCompleteTree(nil)
+	kthLargest(nil, 0)
+	copyRandomList(nil)
 }
 
 func TestMinPathSum(t *testing.T) {
@@ -123,4 +126,28 @@ func TestStringCompare(t *testing.T) {
 	s1 := "3340"
 	s2 := "334"
 	t.Log(strings.Compare(s1, s2))
+}
+
+func TestCalculate(t *testing.T) {
+	s := "1-1+3+5  /  2"
+	res := 5
+	if ans := calculate(s); ans != res {
+		t.Errorf("expected %d, got %d", res, ans)
+	}
+}
+
+func TestDecodeString(t *testing.T) {
+	s := "3[a2[c]]"
+	res := "accaccacc"
+	if ans := decodeString(s); ans != res {
+		t.Errorf("expected %s, got %s", res, ans)
+	}
+}
+
+func TestSwapPairs(t *testing.T) {
+	head := createLinkedList([]int{1, 2, 3, 4, 5, 6})
+	res := createLinkedList([]int{2, 1, 4, 3, 6, 5})
+	if ans := swapPairs(head); !listNodeEqual(ans, res) {
+		t.Errorf("expected %v, got %v", createSliceFromLinkedList(res), createSliceFromLinkedList(ans))
+	}
 }

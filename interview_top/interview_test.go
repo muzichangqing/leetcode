@@ -1,6 +1,7 @@
 package interviewtop
 
 import (
+	"math"
 	"testing"
 )
 
@@ -54,6 +55,33 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 	correct := 3
 	rs := lengthOfLongestSubstring(s)
 	if rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+}
+
+func TestFindMedianSortedArrays(t *testing.T) {
+	nums1 := []int{1, 2, 3, 6}
+	nums2 := []int{1, 3, 4, 5, 9, 10}
+	correct := 3.5
+
+	rs := findMedianSortedArrays(nums1, nums2)
+	if math.Abs(correct-rs) > 0.00001 {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+
+	nums1 = []int{1, 2}
+	nums2 = []int{3, 4}
+	correct = 2.5
+
+	rs = findMedianSortedArrays(nums1, nums2)
+	if math.Abs(correct-rs) > 0.00001 {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+}
+
+func TestLongestPalindrome(t *testing.T) {
+	s, correct := "babad", "bab"
+	if rs := longestPalindrome(s); rs != correct {
 		t.Fatalf("expect %v, got %v", correct, rs)
 	}
 }

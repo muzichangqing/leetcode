@@ -85,3 +85,69 @@ func TestLongestPalindrome(t *testing.T) {
 		t.Fatalf("expect %v, got %v", correct, rs)
 	}
 }
+
+func TestReverseInt32(t *testing.T) {
+	var x, correct int
+	x, correct = 123, 321
+	if rs := reverse(x); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	x, correct = 0, 0
+	if rs := reverse(x); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	x, correct = -123, -321
+	if rs := reverse(x); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	x, correct = math.MaxInt32, 0
+	if rs := reverse(x); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	x, correct = math.MinInt32, 0
+	if rs := reverse(x); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+}
+
+func TestMyAtoi(t *testing.T) {
+	var (
+		s       string
+		correct int
+	)
+	s, correct = "42", 42
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	s, correct = "  +00042xyz", 42
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	s, correct = "  000-42xyz", 0
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	s, correct = "  -00042xyz", -42
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	s, correct = "21474836460", 2147483647
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	s, correct = "-2147483649", -2147483648
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+	s, correct = "", 0
+	if rs := myAtoi(s); rs != correct {
+		t.Fatalf("expect %v, got %v", correct, rs)
+	}
+}
+
+func TestIntRaise(t *testing.T) {
+	var i8 int8 = 127
+	t.Log(i8+1 == -128)
+	t.Log(math.MaxInt32, math.MinInt32)
+	t.Log(-11 % 10)
+}

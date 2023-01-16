@@ -117,31 +117,59 @@ func TestMyAtoi(t *testing.T) {
 	)
 	s, correct = "42", 42
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 	s, correct = "  +00042xyz", 42
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 	s, correct = "  000-42xyz", 0
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 	s, correct = "  -00042xyz", -42
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 	s, correct = "21474836460", 2147483647
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 	s, correct = "-2147483649", -2147483648
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 	s, correct = "", 0
 	if rs := myAtoi(s); rs != correct {
-		t.Fatalf("expect %v, got %v", correct, rs)
+		t.Errorf("expect %v, got %v", correct, rs)
+	}
+}
+
+func TestIsMatch(t *testing.T) {
+	var s, p string
+	var correct bool
+	s, p = "aa", "a"
+	correct = false
+	if rs := isMatch(s, p); rs != correct {
+		t.Errorf("expect %v, got %v", correct, rs)
+	}
+
+	s, p = "aa", "a*"
+	correct = true
+	if rs := isMatch(s, p); rs != correct {
+		t.Errorf("expect %v, got %v", correct, rs)
+	}
+
+	s, p = "ab", ".*"
+	correct = true
+	if rs := isMatch(s, p); rs != correct {
+		t.Errorf("expect %v, got %v", correct, rs)
+	}
+
+	s, p = "aab", "c*a*b"
+	correct = true
+	if rs := isMatch(s, p); rs != correct {
+		t.Errorf("expect %v, got %v", correct, rs)
 	}
 }
 

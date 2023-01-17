@@ -173,9 +173,25 @@ func TestIsMatch(t *testing.T) {
 	}
 }
 
+func TestMaxArea(t *testing.T) {
+	var (
+		height  []int
+		correct int
+	)
+	height = []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
+	correct = 49
+	if rs := maxArea(height); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+}
+
 func TestIntRaise(t *testing.T) {
 	var i8 int8 = 127
 	t.Log(i8+1 == -128)
 	t.Log(math.MaxInt32, math.MinInt32)
 	t.Log(-11 % 10)
+}
+
+func tErrorf(correct, rs interface{}, t *testing.T) {
+	t.Errorf("expect %v, got %v", correct, rs)
 }

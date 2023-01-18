@@ -192,6 +192,16 @@ func TestIntRaise(t *testing.T) {
 	t.Log(-11 % 10)
 }
 
+func TestRomanToInt(t *testing.T) {
+	ss := []string{"III", "IV", "IX", "LVIII", "MCMXCIV"}
+	ii := []int{3, 4, 9, 58, 1994}
+	for i, v := range ss {
+		if rs := romanToInt(v); rs != ii[i] {
+			tErrorf(ii[i], rs, t)
+		}
+	}
+}
+
 func tErrorf(correct, rs interface{}, t *testing.T) {
 	t.Errorf("expect %v, got %v", correct, rs)
 }

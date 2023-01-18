@@ -202,6 +202,19 @@ func TestRomanToInt(t *testing.T) {
 	}
 }
 
+func TestLongestCommonPrefix(t *testing.T) {
+	var (
+		strs    []string
+		correct string
+	)
+
+	strs = []string{"flower", "flow", "flight"}
+	correct = "fl"
+	if rs := longestCommonPrefix(strs); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+}
+
 func tErrorf(correct, rs interface{}, t *testing.T) {
 	t.Errorf("expect %v, got %v", correct, rs)
 }

@@ -215,6 +215,20 @@ func TestLongestCommonPrefix(t *testing.T) {
 	}
 }
 
+func TestIsValid(t *testing.T) {
+	var (
+		s	string
+		correct bool
+		
+	)
+	
+	s = "()[]{}"
+	correct = true
+	if rs := isValid(s); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+}
+
 func tErrorf(correct, rs interface{}, t *testing.T) {
 	t.Errorf("expect %v, got %v", correct, rs)
 }

@@ -217,16 +217,25 @@ func TestLongestCommonPrefix(t *testing.T) {
 
 func TestIsValid(t *testing.T) {
 	var (
-		s	string
+		s       string
 		correct bool
-		
 	)
-	
+
 	s = "()[]{}"
 	correct = true
 	if rs := isValid(s); rs != correct {
 		tErrorf(correct, rs, t)
 	}
+}
+
+func TestThreeSum(t *testing.T) {
+	var (
+		nums []int
+	)
+	nums = []int{-1, 0, 1, 2, -1, -4}
+	t.Log(threeSum(nums))
+	nums = []int{0, 1, 1}
+	t.Log(threeSum(nums))
 }
 
 func tErrorf(correct, rs interface{}, t *testing.T) {

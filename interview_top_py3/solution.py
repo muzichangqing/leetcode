@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 
 class ListNode:
@@ -30,3 +30,13 @@ class Solution:
         else:
             cursor.next = list2
         return head.next
+
+    def removeDuplicates(self, nums: List[int]) -> int:
+        slow, quick = 0, 1
+        while quick < len(nums):
+            if nums[quick] != nums[quick-1]:
+                slow += 1
+                nums[slow] = nums[quick]
+            quick += 1
+        return slow+1
+        

@@ -228,6 +228,18 @@ func TestIsValid(t *testing.T) {
 	}
 }
 
+func TestLetterCombinations(t *testing.T) {
+    var (
+        digits string
+    )
+    digits = "23"
+    t.Log(letterCombinations(digits));
+    digits = ""
+    t.Log(letterCombinations(digits));
+    digits = "2"
+    t.Log(letterCombinations(digits));
+}
+
 func TestThreeSum(t *testing.T) {
 	var (
 		nums []int

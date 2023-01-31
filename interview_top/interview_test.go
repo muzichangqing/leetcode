@@ -250,6 +250,30 @@ func TestThreeSum(t *testing.T) {
 	t.Log(threeSum(nums))
 }
 
+func TestGenerateParenthesis(t *testing.T) {
+	t.Log(generateParenthesis(3))
+	t.Log(generateParenthesis(1))
+}
+
+func TestStrStr(t *testing.T) {
+	var haystack, needle string
+	var correct int
+
+	haystack, needle, correct = "mississippi", "issip", 4
+	if rs := strStr(haystack, needle); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+	haystack, needle, correct = "leetcode", "leeto", -1
+	if rs := strStr(haystack, needle); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+}
+
+func TestTest(t *testing.T) {
+	removeNthFromEnd(nil, 0)
+	mergeKLists(nil)
+}
+
 func tErrorf(correct, rs interface{}, t *testing.T) {
 	t.Errorf("expect %v, got %v", correct, rs)
 }

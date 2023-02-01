@@ -269,6 +269,25 @@ func TestStrStr(t *testing.T) {
 	}
 }
 
+func TestDivide(t *testing.T) {
+	var dividend, divisor, correct int
+
+	dividend, divisor, correct = 10, 3, 3
+	if rs := divide(dividend, divisor); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+
+	dividend, divisor, correct = 7, -3, -2
+	if rs := divide(dividend, divisor); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+
+	dividend, divisor, correct = -7, -3, 2
+	if rs := divide(dividend, divisor); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+}
+
 func TestTest(t *testing.T) {
 	removeNthFromEnd(nil, 0)
 	mergeKLists(nil)

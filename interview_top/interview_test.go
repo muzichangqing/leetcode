@@ -288,6 +288,38 @@ func TestDivide(t *testing.T) {
 	}
 }
 
+func TestSearch(t *testing.T) {
+	var (
+		nums    []int
+		target  int
+		correct int
+	)
+
+	nums = []int{4, 5, 6, 7, 0, 1, 2}
+	target = 0
+	correct = 4
+
+	if result := search(nums, target); correct != result {
+		tErrorf(correct, result, t)
+	}
+}
+
+func TestSearchRange(t *testing.T) {
+	var (
+		nums    []int
+		target  int
+		correct []int
+	)
+
+	nums = []int{5, 7, 7, 8, 8, 10}
+	target = 8
+	correct = []int{3, 4}
+	rs := searchRange(nums, target)
+	if len(rs) != 2 || rs[0] != correct[0] || rs[1] != correct[1] {
+		tErrorf(correct, rs, t)
+	}
+}
+
 func TestTest(t *testing.T) {
 	removeNthFromEnd(nil, 0)
 	mergeKLists(nil)

@@ -320,9 +320,26 @@ func TestSearchRange(t *testing.T) {
 	}
 }
 
+func TestCountAndSay(t *testing.T) {
+	var (
+		n       int
+		correct string
+	)
+
+	n, correct = 1, "1"
+	if rs := countAndSay(n); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+	n, correct = 4, "1211"
+	if rs := countAndSay(n); rs != correct {
+		tErrorf(correct, rs, t)
+	}
+}
+
 func TestTest(t *testing.T) {
 	removeNthFromEnd(nil, 0)
 	mergeKLists(nil)
+	isValidSudoku(nil)
 }
 
 func tErrorf(correct, rs interface{}, t *testing.T) {

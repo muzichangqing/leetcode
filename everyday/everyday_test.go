@@ -37,3 +37,10 @@ func TestMaximumConsecutive(t *testing.T) {
 		t.Errorf("for %v, expect %d, got %d", coins, correct, ans)
 	}
 }
+
+func TestAlertNames(t *testing.T) {
+	keyNames := []string{"daniel", "daniel", "daniel", "luis", "luis", "luis", "luis"}
+	keyTimes := []string{"10:00", "10:40", "11:00", "09:00", "11:00", "13:00", "15:00"}
+
+	t.Log(alertNames(keyNames, keyTimes))
+}

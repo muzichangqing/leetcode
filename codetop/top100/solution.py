@@ -1,6 +1,11 @@
-from typing import List
+from typing import List, Optional
 import functools
 
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
@@ -40,16 +45,53 @@ class Solution:
                 matrix[i][j], matrix[j][i2], matrix[i2][j2], matrix[j2][i] = \
                 matrix[j2][i], matrix[i][j], matrix[j][i2], matrix[i2][j2]
 
+    def compareVersion(self, version1: str, version2: str) -> int:
+        m, n = len(version1), len(version2)
+        i = j = 0
+        while i < m or j < n:
+            x = 0
+            while i < m and version1[i] != '.':
+                x = x * 10 + ord(version1[i]) - ord('0')
+                i += 1
+            i += 1
+            y = 0
+            while j < n and version2[j] != '.':
+                y = y * 10 + ord(version2[j]) - ord('0')
+                j += 1
+            j += 1
+            if x != y:
+                return 1 if x > y else -1
+        return 0
+
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        ans = []
+        def traversal(node: Optional[TreeNode]):
+            if node is None:
+                return
+            ans.append(node.val)
+            traversal(node.left)
+            traversal(node.right)
+        traversal(root)
+        return ans
+
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        n = len(nums)
+
+        def dfs(idx: int, items: List[int]):
+            if idx == n:
+                ans.append(items.copy())
+                return
+
+            items.append(nums[idx])
+            dfs(idx+1, items)
+            items.pop()
+            dfs(idx+1, items)   
+               
+        dfs(0, [])
+        return ans
 
 if __name__ == '__main__':
     s = Solution()
-    coins = [1, 2, 5]
-    amount = 11
-    print(s.coinChange(coins, amount))
-
-    nums = [1,3,2,1,3,2,2]
-    print(s.numberOfPairs(nums))
-
-    matrix = [[1,2,3],[4,5,6],[7,8,9]]
-    s.rotate(matrix)
-    print(matrix)
+    nums = [1, 2, 3]
+    print(s.subsets(nums))

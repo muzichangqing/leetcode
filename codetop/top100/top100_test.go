@@ -14,3 +14,7 @@ func TestAdd(t *testing.T) {
 	t.Log(string(multiplyOneBit('2', []byte{'3'})))
 	t.Log(multiply("123", "456"))
 }
+
+func TestCombinationSum(t *testing.T) {
+	t.Log(combinationSum([]int{2, 3, 6, 7}, 7))
+}

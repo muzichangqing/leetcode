@@ -18,3 +18,10 @@ func TestAdd(t *testing.T) {
 func TestCombinationSum(t *testing.T) {
 	t.Log(combinationSum([]int{2, 3, 6, 7}, 7))
 }
+
+func TestDecodeString(t *testing.T) {
+	rs := decodeString("abc3[a2[c]]xyz")
+	if rs != "abcaccaccaccxyz" {
+		t.Fatalf("expect \"abcaccaccaccxyz\", got \"%s\"", rs)
+	}
+}

@@ -44,3 +44,11 @@ func TestAlertNames(t *testing.T) {
 
 	t.Log(alertNames(keyNames, keyTimes))
 }
+
+func TestNumTimesAllBlue(t *testing.T) {
+	flips := []int{3, 2, 4, 1, 5}
+	correct := 2
+	if ans := numTimesAllBlue(flips); ans != correct {
+		t.Errorf("for %v, expect %d, got %d", flips, correct, ans)
+	}
+}

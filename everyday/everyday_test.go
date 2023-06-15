@@ -52,3 +52,21 @@ func TestNumTimesAllBlue(t *testing.T) {
 		t.Errorf("for %v, expect %d, got %d", flips, correct, ans)
 	}
 }
+
+func TestCanMakePaliQueries(t *testing.T) {
+	queris := [][]int{
+		{3, 3, 0},
+		{1, 2, 0},
+		{0, 3, 1},
+		{0, 3, 2},
+		{0, 4, 1},
+	}
+	s := "abcda"
+	correct := []bool{true, false, false, true, true}
+	ans := canMakePaliQueries(s, queris)
+	for i, v := range ans {
+		if v != correct[i] {
+			t.Errorf("query %v expect %v, got %v", queris[i], correct[i], v)
+		}
+	}
+}

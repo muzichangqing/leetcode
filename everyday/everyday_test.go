@@ -70,3 +70,13 @@ func TestCanMakePaliQueries(t *testing.T) {
 		}
 	}
 }
+
+func TestMinNumberOfSemesters(t *testing.T) {
+	n := 4
+	relations := [][]int{{2, 1}, {3, 1}, {1, 4}}
+	k := 2
+	correct := 3
+	if res := minNumberOfSemesters(n, relations, k); res != correct {
+		t.Errorf("expect %d, got %d", correct, res)
+	}
+}

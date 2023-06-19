@@ -3,3 +3,5 @@ problems/test/
 .vscode/*
 .idea/*
 venv/
+rust/target/*
+rust/.vscode/*

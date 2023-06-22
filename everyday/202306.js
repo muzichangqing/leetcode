@@ -74,3 +74,38 @@ var connectTwoGroups = function(cost) {
 
     return dp[size1][m - 1];
 };
+
+// 面试题 16.19. 水域大小
+const pondSizes = (land) => {
+    const m = land.length;
+    const n = land[0].length;
+    const resList = [];
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (land[i][j] === 0) {
+                resList.push(dfs(land, i, j));
+            }
+        }
+    }
+    const res = resList.sort((a, b) => a - b);
+    return res;
+};
+
+const dfs = (land, x, y) => {
+    const m = land.length;
+    const n = land[0].length;
+    if (x < 0 || x >= m || y < 0 || y >= n || land[x][y] !== 0) {
+        return 0;
+    }
+    land[x][y] = -1;
+    let res = 1;
+    for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+            if (dx === 0 && dy === 0) {
+                continue;
+            }
+            res += dfs(land, x + dx, y + dy);
+        }
+    }
+    return res;
+};

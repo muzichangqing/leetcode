@@ -16,4 +16,22 @@ impl Solution {
         }
         f[0]
     }
+
+    // 2496. 数组中字符串的最大值
+    pub fn maximum_value(strs: Vec<String>) -> i32 {
+        let mut max = 0;
+
+        for str in &strs {
+            let num: i32 = match str.parse() {
+                Ok(num) => num,
+                Err(_) => {
+                    str.chars().count() as i32
+                },
+            };
+            if num > max {
+                max = num
+            }
+        }
+        max
+    }
 }

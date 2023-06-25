@@ -28,10 +28,19 @@ impl Solution {
                     str.chars().count() as i32
                 },
             };
-            if num > max {
-                max = num
-            }
+            max = cmp::max(max, num)
         }
         max
+    }
+    
+    pub fn check_overlap(radius: i32, x_center: i32, y_center: i32, x1: i32, y1: i32, x2: i32, y2: i32) -> bool {
+        let mut dist = 0;
+        if x_center < x1 || x_center > x2 {
+            dist += cmp::min((x1 - x_center).pow(2), (x2 - x_center).pow(2));
+        }
+        if y_center < y1 || y_center > y2 {
+            dist += cmp::min((y1-y_center).pow(2), (y2-y_center).pow(2));
+        }
+        return dist <= radius.pow(2);
     }
 }

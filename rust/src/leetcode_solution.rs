@@ -43,4 +43,17 @@ impl Solution {
         }
         return dist <= radius.pow(2);
     }
+
+    pub fn pivot_integer(n: i32) -> i32 {
+        let mut right_sum = 0;
+        let mut left_sum = n * ( n + 1) / 2;;
+        for i in (1..=n).rev() {
+            left_sum -= i;
+            if left_sum == right_sum {
+                return i;
+            }
+            right_sum += i;
+        }
+        -1
+    }
 }

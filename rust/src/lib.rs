@@ -38,5 +38,10 @@ mod tests {
         let result = Solution::maximum_value(strs_strings(strs));
         assert_eq!(correct, result);
     }
+
+    #[test]
+    fn pivot_integer() {
+        assert_eq!(6, Solution::pivot_integer(8));
+    }
 }
 

@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::cmp;
 
 pub struct Solution {}
@@ -46,7 +47,7 @@ impl Solution {
 
     pub fn pivot_integer(n: i32) -> i32 {
         let mut right_sum = 0;
-        let mut left_sum = n * ( n + 1) / 2;;
+        let mut left_sum = n * ( n + 1) / 2;
         for i in (1..=n).rev() {
             left_sum -= i;
             if left_sum == right_sum {

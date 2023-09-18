@@ -2,39 +2,23 @@ package everyday
 
 // 337. 打家劫舍 III
 func rob(root *TreeNode) int {
-	var rob func(*TreeNode, bool) int
-	c1, c2 := make(map[*TreeNode]int), make(map[*TreeNode]int)
-
-	rob = func(tn *TreeNode, b bool) int {
-		var c map[*TreeNode]int
-		if b {
-			c = c1
-		} else {
-			c = c2
+	m1, m2 := make(map[*TreeNode]int), make(map[*TreeNode]int)
+	var dfs func(*TreeNode)
+	max := func(a, b int) int {
+		if a > b {
+			return a
 		}
-		if res, ok := c[tn]; ok {
-			return res
-		}
-		var res int
+		return b
+	}
+	dfs = func(tn *TreeNode) {
 		if tn == nil {
-			res = 0
-		} else if b {
-			res1 := tn.Val + rob(tn.Left, false) + rob(tn.Right, false)
-			res2 := rob(tn.Left, true) + rob(tn.Right, true)
-			if res1 > res2 {
-				res = res1
-			} else {
-				res = res2
-			}
-		} else {
-			res = rob(tn.Left, true) + rob(tn.Right, true)
+			return
 		}
-		c[tn] = res
-		return res
+		dfs(tn.Left)
+		dfs(tn.Right)
+		m1[tn] = tn.Val + m2[tn.Left] + m2[tn.Right]
+		m2[tn] = max(m1[tn.Left], m2[tn.Left]) + max(m1[tn.Right], m2[tn.Right])
 	}
-	res1, res2 := rob(root, true), rob(root, false)
-	if res1 > res2 {
-		return res1
-	}
-	return res2
+	dfs(root)
+	return max(m1[root], m2[root])
 }

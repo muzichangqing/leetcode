@@ -57,4 +57,17 @@ impl Solution {
         }
         -1
     }
+
+    // 192. 打家劫舍
+    pub fn rob(nums: Vec<i32>) -> i32 {
+        let mut x = 0;
+        let mut y = 0;
+        for num in nums {
+            let a = num + y;
+            let b = cmp::max(x, y);
+            x = a;
+            y = b;
+        }
+        return cmp::max(x, y);
+    }
 }

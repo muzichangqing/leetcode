@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-use std::cmp;
+use std::{cmp, collections::HashSet};
 
 pub struct Solution {}
 
@@ -70,4 +70,36 @@ impl Solution {
         }
         return cmp::max(x, y);
     }
+
+    // 421. 数组中两个数的最大异或和
+    pub fn find_maximum_xor(nums: Vec<i32>) -> i32 {
+        let mut x = 0;
+
+        let high_bit = 30;
+        for k in (0..=high_bit).rev() {
+            let mut seen = HashSet::new();
+            for num in &nums {
+                seen.insert(num >> k);
+            }
+
+            let x_next = x * 2 + 1;
+            let mut found = false;
+
+            for num in &nums {
+                let num_other = num >> k ^ x_next;
+                if seen.contains(&num_other) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if found {
+                x = x_next;
+            } else {
+                x = x_next - 1;
+            }
+        }
+        x
+    }
+
 }

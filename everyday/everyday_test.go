@@ -80,3 +80,53 @@ func TestMinNumberOfSemesters(t *testing.T) {
 		t.Errorf("expect %d, got %d", correct, res)
 	}
 }
+
+func TestReverseOddLevels(t *testing.T) {
+	root := &TreeNode{
+		Val: 2,
+		Left: &TreeNode{
+			Val:   3,
+			Left:  &TreeNode{Val: 8},
+			Right: &TreeNode{Val: 13},
+		},
+		Right: &TreeNode{
+			Val:   5,
+			Left:  &TreeNode{Val: 21},
+			Right: &TreeNode{Val: 34},
+		},
+	}
+	root = reverseOddLevels(root)
+	printBinaryTreeByLevel(root, t)
+}
+
+func printBinaryTreeByLevel(root *TreeNode, t *testing.T) {
+	if root == nil {
+		t.Log("root = nil")
+		return
+	}
+	args := []any{}
+
+	queue := []*TreeNode{root}
+
+	for len(queue) != 0 {
+		newQueue := []*TreeNode{}
+		hasNotNil := false
+		for _, node := range queue {
+			if node == nil {
+				args = append(args, "null")
+				newQueue = append(newQueue, nil, nil)
+				continue
+			}
+			args = append(args, node.Val)
+			newQueue = append(newQueue, node.Left, node.Right)
+			if node.Left != nil || node.Right != nil {
+				hasNotNil = true
+			}
+		}
+		if !hasNotNil {
+			break
+		}
+		queue = newQueue
+	}
+	t.Log(args...)
+}
